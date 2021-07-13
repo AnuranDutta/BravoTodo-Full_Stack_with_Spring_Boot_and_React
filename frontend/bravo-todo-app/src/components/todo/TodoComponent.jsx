@@ -19,7 +19,24 @@ export default class TodoComponent extends Component {
   }
 
   onSubmit(values) {
-    console.log(values);
+    let username = AuthenticationService.getLoggedInUserName();
+
+    let todo = {
+      id: this.state.id,
+      description: values.description,
+      targetDate: values.targetDate,
+    };
+
+    if (this.state.id === -1) {
+      TodoDataService.createTodo(username, todo).then(() =>
+        this.props.history.push("/todos")
+      );
+    } else {
+      TodoDataService.updateTodo(username, this.state.id, todo).then(() =>
+        this.props.history.push("/todos")
+      );
+      // console.log(values);
+    }
   }
 
   validate(values) {
@@ -38,15 +55,16 @@ export default class TodoComponent extends Component {
   }
 
   componentDidMount() {
+    if (this.state.id === -1) return;
+
     let username = AuthenticationService.getLoggedInUserName();
-    TodoDataService.retrieveTodo(username, this.state.id)
-    .then((response) => {
-      console.log(response)
+    TodoDataService.retrieveTodo(username, this.state.id).then((response) => {
+      //   console.log(response)
       this.setState({
-          description : response.data.description,
-          targetDate : moment(response.data.targetDate).format('YYYY-MM-DD')
-      })}
-    );
+        description: response.data.description,
+        targetDate: moment(response.data.targetDate).format("YYYY-MM-DD"),
+      });
+    });
   }
 
   render() {
@@ -57,7 +75,7 @@ export default class TodoComponent extends Component {
         <h1>Todo</h1>
         <div className="row justify-content-center">
           <Formik
-            initialValues={{ description, targetDate }}
+            initialValues={(this.props.match.params.id === "-1")?{ description, targetDate: "" }:{ description, targetDate }}
             onSubmit={this.onSubmit}
             validateOnChange={false}
             validateOnBlur={false}
