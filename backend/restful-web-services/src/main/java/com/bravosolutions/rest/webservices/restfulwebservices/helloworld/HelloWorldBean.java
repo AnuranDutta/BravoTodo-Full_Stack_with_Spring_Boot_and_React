@@ -1,4 +1,4 @@
-package com.bravosolutions.rest.webservices.restfulwebservices;
+package com.bravosolutions.rest.webservices.restfulwebservices.helloworld;
 
 public class HelloWorldBean {
 	

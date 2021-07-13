@@ -1,4 +1,4 @@
-package com.bravosolutions.rest.webservices.restfulwebservices;
+package com.bravosolutions.rest.webservices.restfulwebservices.helloworld;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +19,12 @@ public class HelloWorldController {
 	
 	@GetMapping(path = "/hello-world-bean")
 	public HelloWorldBean helloWorldBean() {
-		return new HelloWorldBean("Hello World");
+		return new HelloWorldBean("Hello World Bean");
 	}
 	
 	@GetMapping(path = "/hello-world/path-variable/{name}")
 	public HelloWorldBean helloWorldPathVaraible(@PathVariable String name) {
+//		throw new RuntimeException("Something went wrong");
 		return new HelloWorldBean(String.format("Hello World, %s",name));
 	}
 }
