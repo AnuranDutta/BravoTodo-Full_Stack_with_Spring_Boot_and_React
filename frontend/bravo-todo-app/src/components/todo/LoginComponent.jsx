@@ -6,7 +6,7 @@ export default class LoginComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "Admin",
+      username: "admin",
       password: "",
       hasLoginFailed: false,
       showSuccessMessage: false,
@@ -20,18 +20,26 @@ export default class LoginComponent extends Component {
   }
 
   loginClicked() {
-    if (this.state.username === "Admin" && this.state.password === "dummy") {
-      AuthenticationService.registerSuccessfulLogin(
-        this.state.username,
-        this.state.password
-      );
-      this.props.history.push(`/welcome/${this.state.username}`);
-      // this.setState({showSuccessMessage:true})
-      // this.setState({hasLoginFailed:false})
-    } else {
-      this.setState({ showSuccessMessage: false });
-      this.setState({ hasLoginFailed: true });
-    }
+    // AuthenticationService.executeBasicAuthenticationService(
+    //   this.state.username,
+    //   this.state.password
+    // )
+
+    AuthenticationService.executeJwtAuthenticationService(
+      this.state.username,
+      this.state.password
+    )
+      .then((response) => {
+        AuthenticationService.registerSuccessfulLoginForJwt(
+          this.state.username,
+          response.data.token
+        );
+        this.props.history.push(`/welcome/${this.state.username}`);
+      })
+      .catch(() => {
+        this.setState({ showSuccessMessage: false });
+        this.setState({ hasLoginFailed: true });
+      });
   }
 
   render() {
@@ -68,7 +76,11 @@ export default class LoginComponent extends Component {
             />
           </div>
           <div className="form-group">
-            <button className="btn btn-primary" onClick={this.loginClicked}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={this.loginClicked}
+            >
               Login
             </button>
           </div>
