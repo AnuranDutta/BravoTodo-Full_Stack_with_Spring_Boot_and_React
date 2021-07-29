@@ -7,6 +7,7 @@ import HeaderComponentWithRouter from "./HeaderComponent.jsx";
 import ListTodosComponent from "./ListTodosComponent.jsx";
 import LoginComponent from "./LoginComponent.jsx";
 import LogoutComponent from "./LogoutComponent.jsx";
+import RegisterComponent from "./RegisterComponent.jsx";
 import WelcomeComponent from "./WelcomeComponent.jsx";
 import TodoComponent from "./TodoComponent.jsx";
 
@@ -19,6 +20,7 @@ export default class TodoApp extends Component {
           <Switch>
             <Route path="/" exact component={LoginComponent} />
             <Route path="/login" component={LoginComponent} />
+            <Route path="/register" component={RegisterComponent} />
             <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} />
             <AuthenticatedRoute path="/todos/:id" component={TodoComponent} />
             <AuthenticatedRoute path="/todos" component={ListTodosComponent} />

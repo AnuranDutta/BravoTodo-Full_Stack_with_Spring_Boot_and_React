@@ -39,6 +39,13 @@ class HeaderComponent extends Component {
                 </Link>
               </li>
             )}
+            {!isUserLoggedIn && (
+              <li>
+                <Link className="nav-link" to="/register">
+                  Sign-up
+                </Link>
+              </li>
+            )}
             {isUserLoggedIn && (
               <li>
                 <Link

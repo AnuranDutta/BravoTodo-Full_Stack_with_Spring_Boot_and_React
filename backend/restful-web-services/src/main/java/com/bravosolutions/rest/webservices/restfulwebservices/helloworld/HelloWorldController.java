@@ -25,6 +25,6 @@ public class HelloWorldController {
 	@GetMapping(path = "/hello-world/path-variable/{name}")
 	public HelloWorldBean helloWorldPathVaraible(@PathVariable String name) {
 //		throw new RuntimeException("Something went wrong");
-		return new HelloWorldBean(String.format("Hello World, %s",name));
+		return new HelloWorldBean(String.format("Front-end : ReactJs, Bootstrap, CSS, AXIOS, Formik, Moment \n Back-end : Java, SpringBoot, JWT Authentication, JPA, H2"));
 	}
 }

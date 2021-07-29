@@ -21,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class TodoJpaResource {
+	@SuppressWarnings("unused")
 	@Autowired
 	private TodoHardcodedService todoService;
 

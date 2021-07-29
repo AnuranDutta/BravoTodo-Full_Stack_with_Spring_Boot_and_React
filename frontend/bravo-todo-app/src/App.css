@@ -1,4 +1,9 @@
-.footer{
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+.footer {
   position: absolute;
   bottom: 0;
   width: 100%;

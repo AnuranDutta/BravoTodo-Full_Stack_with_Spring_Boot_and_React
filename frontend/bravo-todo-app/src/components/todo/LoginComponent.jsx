@@ -6,17 +6,27 @@ export default class LoginComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "admin",
+      username: "",
       password: "",
       hasLoginFailed: false,
       showSuccessMessage: false,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.loadDemoAccount = this.loadDemoAccount.bind(this);
     this.loginClicked = this.loginClicked.bind(this);
   }
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
+  }
+
+  loadDemoAccount() {
+    this.usernameElement.value = "admin";
+    this.passwordElement.value = "dummy";
+    this.setState({
+      username: this.usernameElement.value,
+      password: this.passwordElement.value,
+    });
   }
 
   loginClicked() {
@@ -56,6 +66,9 @@ export default class LoginComponent extends Component {
             {this.state.showSuccessMessage && <div>Successful!</div>}
             <label htmlFor="username-ip">User Name</label>
             <input
+              ref={(input) => {
+                this.usernameElement = input;
+              }}
               id="username-ip"
               className="form-control"
               type="text"
@@ -67,6 +80,9 @@ export default class LoginComponent extends Component {
           <div className="form-group">
             <label htmlFor="password-ip">Password</label>
             <input
+              ref={(input) => {
+                this.passwordElement = input;
+              }}
               id="password-ip"
               className="form-control"
               type="password"
@@ -83,6 +99,18 @@ export default class LoginComponent extends Component {
             >
               Login
             </button>
+          </div>
+          <br />
+          <div className="form-group">
+            Don't want to create an account? <br />
+            <button
+              type="button"
+              className="btn btn-outline-dark btn-sm"
+              onClick={this.loadDemoAccount}
+            >
+              Click Here
+            </button>
+            &nbsp; to load demo credentials.
           </div>
         </form>
       </div>
